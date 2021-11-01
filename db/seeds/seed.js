@@ -1,5 +1,6 @@
-const db = require('../connection.js');
-const { dropTable } = require('../../utils/utils.js');
+const db = require("../connection.js");
+const { dropTable } = require("../../utils/utils.js");
+const format = require("pg-format")
 
 const seed = (data) => {
   const { categoryData, commentData, reviewData, userData } = data;
@@ -81,6 +82,24 @@ const seed = (data) => {
   
 
   // 2. insert data
+  // categoryData, commentData, reviewData, userData
+  
+  .then( () => {
+    const userTableInsertDataStr = format(
+      `INSERT INTO users (username, name, avatar_url) VALUES %L RETURNING *;`,
+      userData.map((user) => {
+        return [user.username, user.name, user.avatar_url]
+      }))
+  
+    return db.query(userTableInsertDataStr)
+    .then(() => {
+    console.log("Table data added: users")
+    });
+  })
+
+
+
+
 };
 
 module.exports = seed;
