@@ -123,19 +123,18 @@ const seed = (data) => {
     });
   })
 
-  // .then( () => {
-  //   const reviewsTableInsertDataStr = format(
-  //     `INSERT INTO reviews (title, designer, owner, review_img_url, review_body, category, created_at, votes) VALUES %L RETURNING *;`,
-  //     reviewData.map((review) => {
-  //       return [review.title, review.designer, review.owner, review.review_img_url, review.review_body, review.category, review.created_at, review.votes]
-  //     }))
+  .then( () => {
+    const commentsTableInsertDataStr = format(
+      `INSERT INTO comments (body, votes, author, review_id, created_at) VALUES %L RETURNING *;`,
+      commentData.map((comment) => {
+        return [comment.body, comment.votes, comment.author, comment.review_id, comment.created_at]
+      }))
   
-  //   return db.query(reviewsTableInsertDataStr)
-  //   .then(({ rows }) => {
-  //   console.log("Table data added: reviews");
-  //   console.log(rows);
-  //   });
-  // })
+    return db.query(commentsTableInsertDataStr)
+    .then(() => {
+    console.log("Table data inserted: comments");
+    });
+  })
 
 
 };
