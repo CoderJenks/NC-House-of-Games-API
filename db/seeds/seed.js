@@ -93,7 +93,7 @@ const seed = (data) => {
   
     return db.query(usersTableInsertDataStr)
     .then(() => {
-    console.log("Table data added: users")
+    console.log("Table data inserted: users")
     });
   })
 
@@ -106,25 +106,36 @@ const seed = (data) => {
   
     return db.query(categoriesTableInsertDataStr)
     .then(() => {
-    console.log("Table data added: categories");
+    console.log("Table data inserted: categories");
+    });
+  })
+
+  .then( () => {
+    const reviewsTableInsertDataStr = format(
+      `INSERT INTO reviews (title, designer, owner, review_img_url, review_body, category, created_at, votes) VALUES %L RETURNING *;`,
+      reviewData.map((review) => {
+        return [review.title, review.designer, review.owner, review.review_img_url, review.review_body, review.category, review.created_at, review.votes]
+      }))
+  
+    return db.query(reviewsTableInsertDataStr)
+    .then(() => {
+    console.log("Table data inserted: reviews");
     });
   })
 
   // .then( () => {
-  //   const categoriesTableInsertDataStr = format(
-  //     `INSERT INTO categories (slug, description) VALUES %L RETURNING *;`,
-  //     categoryData.map((category) => {
-  //       return [category.slug, category.description]
+  //   const reviewsTableInsertDataStr = format(
+  //     `INSERT INTO reviews (title, designer, owner, review_img_url, review_body, category, created_at, votes) VALUES %L RETURNING *;`,
+  //     reviewData.map((review) => {
+  //       return [review.title, review.designer, review.owner, review.review_img_url, review.review_body, review.category, review.created_at, review.votes]
   //     }))
   
-  //   return db.query(categoriesTableInsertDataStr)
+  //   return db.query(reviewsTableInsertDataStr)
   //   .then(({ rows }) => {
-  //   console.log("Table data added: categories");
+  //   console.log("Table data added: reviews");
   //   console.log(rows);
   //   });
   // })
-
-
 
 
 };
