@@ -14,7 +14,7 @@ describe("GET /api/categories", () => {
         .get("/api/categories")
         .expect(200)
         .then(({body}) => {
-            expect(body.catergories.length).toBe(4);
+            expect(body.categories.length).toBe(4);
         })
     })
 })
