@@ -1,6 +1,8 @@
 # TO-DO
-- Set up .env files DONE
-- Install dependencies DONE
+
+## Setup
+- Set up .env files. **DONE**
+- Install dependencies. **DONE**
 
     #### Dependencies
     - dotenv
@@ -14,14 +16,28 @@
     - supertest
 
 
-- npm run setup-dbs DONE
-- seeding
+- npm run setup-dbs. **DONE**
 
-    #### Seeding
-    - Drop tables if exist
-    - Create tables (Users -> Categories -> Reviews -> Comments)
-    - Insert data into tables
+## Seeding
+- Drop tables if exist. **DONE**
+- Create tables (Users -> Categories -> Reviews -> Comments). **DONE**
+- Insert data into tables. **DONE**
 
+## Building Endpoints
+- Create folders for routes, controllers and models. **DONE**
+- Create `app.js` file and `api.router.js`. **DONE**
+- require `app` and `supertest` in `app.test.js`.
+- set up testing and build endpoints using TDD.
+
+
+    ### **GET** `/api/categories`
+    Create an endpoint which responds with an array of category objects.
+    - it should include the `slug` and `description` properties.
+
+    ERRORS
+    Happy Path
+    - status: 200 {"categories": {,},....,{,}}
+    
 
 
 
