@@ -1,4 +1,5 @@
 const db = require('../connection.js');
+const { dropTable } = require('../../utils/utils.js');
 
 const seed = (data) => {
   const { categoryData, commentData, reviewData, userData } = data;
@@ -14,13 +15,34 @@ const seed = (data) => {
   //  *Create tables and insert data in the following order:
   //  Users -> Categories -> Reviews -> Comments
 
-  const userTableSetupStr = `CREATE TABLE users (
+  return dropTable('users')
+  .then( () => dropTable('categories'))
+  .then( () => dropTable('reviews'))
+  .then( () => dropTable('comments'))
+  .then( () => {
+    const userTableSetupStr = `CREATE TABLE users (
     username VARCHAR(255) NOT NULL PRIMARY KEY,
     name VARCHAR NOT NULL,
     avatar_url TEXT
     );`
   
-  return db.query(userTableSetupStr)
+    return db.query(userTableSetupStr)
+    .then(() => {
+    console.log("Table created: users")
+    });
+
+  })
+  .then( () => {
+    const categoriesTableSetupStr = `CREATE TABLE categories (
+    slug VARCHAR(255) NOT NULL PRIMARY KEY,
+    description VARCHAR NOT NULL
+    );`
+  
+    return db.query(categoriesTableSetupStr)
+    .then(() => {
+    console.log("Table created: categories")
+    });
+  })
 
   // 2. insert data
 };
