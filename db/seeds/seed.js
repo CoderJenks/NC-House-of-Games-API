@@ -21,13 +21,13 @@ const seed = (data) => {
   .then( () => dropTable('categories'))
   .then( () => dropTable('users'))
   .then( () => {
-    const userTableSetupStr = `CREATE TABLE users (
+    const usersTableSetupStr = `CREATE TABLE users (
     username VARCHAR NOT NULL PRIMARY KEY,
     name VARCHAR(40) NOT NULL,
     avatar_url VARCHAR
     );`
   
-    return db.query(userTableSetupStr)
+    return db.query(usersTableSetupStr)
     .then(() => {
     console.log("Table created: users")
     });
@@ -85,17 +85,44 @@ const seed = (data) => {
   // categoryData, commentData, reviewData, userData
   
   .then( () => {
-    const userTableInsertDataStr = format(
+    const usersTableInsertDataStr = format(
       `INSERT INTO users (username, name, avatar_url) VALUES %L RETURNING *;`,
       userData.map((user) => {
         return [user.username, user.name, user.avatar_url]
       }))
   
-    return db.query(userTableInsertDataStr)
+    return db.query(usersTableInsertDataStr)
     .then(() => {
     console.log("Table data added: users")
     });
   })
+
+  .then( () => {
+    const categoriesTableInsertDataStr = format(
+      `INSERT INTO categories (slug, description) VALUES %L RETURNING *;`,
+      categoryData.map((category) => {
+        return [category.slug, category.description]
+      }))
+  
+    return db.query(categoriesTableInsertDataStr)
+    .then(() => {
+    console.log("Table data added: categories");
+    });
+  })
+
+  // .then( () => {
+  //   const categoriesTableInsertDataStr = format(
+  //     `INSERT INTO categories (slug, description) VALUES %L RETURNING *;`,
+  //     categoryData.map((category) => {
+  //       return [category.slug, category.description]
+  //     }))
+  
+  //   return db.query(categoriesTableInsertDataStr)
+  //   .then(({ rows }) => {
+  //   console.log("Table data added: categories");
+  //   console.log(rows);
+  //   });
+  // })
 
 
 
