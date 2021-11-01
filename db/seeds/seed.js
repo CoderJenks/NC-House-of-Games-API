@@ -1,3 +1,5 @@
+const db = require('../connection.js');
+
 const seed = (data) => {
   const { categoryData, commentData, reviewData, userData } = data;
   // 1. create tables
@@ -12,7 +14,14 @@ const seed = (data) => {
   //  *Create tables and insert data in the following order:
   //  Users -> Categories -> Reviews -> Comments
 
-  return dropTable()
+  const userTableSetupStr = `CREATE TABLE users (
+    username VARCHAR(255) NOT NULL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    avatar_url TEXT
+    );`
+  
+  return db.query(userTableSetupStr)
+
   // 2. insert data
 };
 
