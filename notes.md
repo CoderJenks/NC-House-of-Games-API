@@ -27,7 +27,7 @@
 - Create folders for routes, controllers and models. **DONE**
 - Create `app.js` file and `api.router.js`. **DONE**
 - require `app` and `supertest` in `app.test.js`.
-- set up testing and build endpoints using TDD.
+- set up testing and build endpoints using TDD and error handling.
 
 
     ### **GET** `/api/categories`
@@ -36,7 +36,11 @@
 
     ERRORS
     Happy Path
-    - status: 200 {"categories": {,},....,{,}}
+    - status: 200 {"categories": {,},....,{,}} DONE
+
+    Sad Path
+    - status: 500 {msg: "server error"}
+    - status: 404 {msg: "path not found"}
     
 
 
