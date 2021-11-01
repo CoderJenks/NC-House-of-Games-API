@@ -29,7 +29,7 @@ const seed = (data) => {
   
     return db.query(usersTableSetupStr)
     .then(() => {
-    console.log("Table created: users")
+    // console.log("Table created: users")
     });
 
   })
@@ -41,7 +41,7 @@ const seed = (data) => {
   
     return db.query(categoriesTableSetupStr)
     .then(() => {
-    console.log("Table created: categories")
+    // console.log("Table created: categories")
     });
   })
   .then( () => {
@@ -61,7 +61,7 @@ const seed = (data) => {
   
     return db.query(reviewsTableSetupStr)
     .then(() => {
-    console.log("Table created: reviews")
+    // console.log("Table created: reviews")
     });
   })
   .then( () => {
@@ -76,7 +76,7 @@ const seed = (data) => {
   
     return db.query(commentsTableSetupStr)
     .then(() => {
-    console.log("Table created: comments")
+    // console.log("Table created: comments")
     });
   })
   
@@ -93,7 +93,7 @@ const seed = (data) => {
   
     return db.query(usersTableInsertDataStr)
     .then(() => {
-    console.log("Table data inserted: users")
+    // console.log("Table data inserted: users")
     });
   })
 
@@ -106,7 +106,7 @@ const seed = (data) => {
   
     return db.query(categoriesTableInsertDataStr)
     .then(() => {
-    console.log("Table data inserted: categories");
+    // console.log("Table data inserted: categories");
     });
   })
 
@@ -119,7 +119,7 @@ const seed = (data) => {
   
     return db.query(reviewsTableInsertDataStr)
     .then(() => {
-    console.log("Table data inserted: reviews");
+    // console.log("Table data inserted: reviews");
     });
   })
 
@@ -132,7 +132,7 @@ const seed = (data) => {
   
     return db.query(commentsTableInsertDataStr)
     .then(() => {
-    console.log("Table data inserted: comments");
+    // console.log("Table data inserted: comments");
     });
   })
 

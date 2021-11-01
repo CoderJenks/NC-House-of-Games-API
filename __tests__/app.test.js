@@ -11,7 +11,7 @@ afterAll(() => db.end());
 describe("GET /api/categories", () => {
     test("status 200, responds with an array of games", () => {
         return request(app)
-        .get("/api/games")
+        .get("/api/categories")
         .expect(200)
         .then(({body}) => {
             expect(body.catergories.length).toBe(4);
