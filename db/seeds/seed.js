@@ -21,9 +21,9 @@ const seed = (data) => {
   .then( () => dropTable('comments'))
   .then( () => {
     const userTableSetupStr = `CREATE TABLE users (
-    username VARCHAR(255) NOT NULL PRIMARY KEY,
-    name VARCHAR NOT NULL,
-    avatar_url TEXT
+    username VARCHAR NOT NULL PRIMARY KEY,
+    name VARCHAR(40) NOT NULL,
+    avatar_url VARCHAR
     );`
   
     return db.query(userTableSetupStr)
@@ -34,7 +34,7 @@ const seed = (data) => {
   })
   .then( () => {
     const categoriesTableSetupStr = `CREATE TABLE categories (
-    slug VARCHAR(255) NOT NULL PRIMARY KEY,
+    slug VARCHAR(40) NOT NULL PRIMARY KEY,
     description VARCHAR NOT NULL
     );`
   
@@ -43,6 +43,25 @@ const seed = (data) => {
     console.log("Table created: categories")
     });
   })
+  .then( () => {
+    const reviewsTableSetupStr = `CREATE TABLE reviews (
+    review_id SERIAL PRIMARY KEY,
+    title VARCHAR,
+    designer VARCHAR(40),
+    owner VARCHAR REFERENCES users(username) ON DELETE CASCADE,
+    review_img_url VARCHAR,
+    review_body VARCHAR,
+    category VARCHAR REFERENCES categories(slug) ON DELETE CASCADE,
+    created_at TIMESTAMP,
+    votes INT
+    );`
+  
+    return db.query(reviewsTableSetupStr)
+    .then(() => {
+    console.log("Table created: reviews")
+    });
+  })
+  
 
   // 2. insert data
 };
