@@ -15,10 +15,10 @@ const seed = (data) => {
   //  *Create tables and insert data in the following order:
   //  Users -> Categories -> Reviews -> Comments
 
-  return dropTable('users')
-  .then( () => dropTable('categories'))
+  return dropTable('comments')
   .then( () => dropTable('reviews'))
-  .then( () => dropTable('comments'))
+  .then( () => dropTable('categories'))
+  .then( () => dropTable('users'))
   .then( () => {
     const userTableSetupStr = `CREATE TABLE users (
     username VARCHAR NOT NULL PRIMARY KEY,
@@ -46,19 +46,36 @@ const seed = (data) => {
   .then( () => {
     const reviewsTableSetupStr = `CREATE TABLE reviews (
     review_id SERIAL PRIMARY KEY,
-    title VARCHAR,
-    designer VARCHAR(40),
-    owner VARCHAR REFERENCES users(username) ON DELETE CASCADE,
-    review_img_url VARCHAR,
-    review_body VARCHAR,
-    category VARCHAR REFERENCES categories(slug) ON DELETE CASCADE,
-    created_at TIMESTAMP,
-    votes INT
+    title VARCHAR NOT NULL,
+    designer VARCHAR(40) NOT NULL,
+    owner VARCHAR NOT NULL,
+    FOREIGN KEY (owner) REFERENCES users(username) ON DELETE CASCADE,
+    review_img_url VARCHAR DEFAULT 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg',
+    review_body VARCHAR NOT NULL,
+    category VARCHAR NOT NULL,
+    FOREIGN KEY (category) REFERENCES categories(slug) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    votes INT DEFAULT 0
     );`
   
     return db.query(reviewsTableSetupStr)
     .then(() => {
     console.log("Table created: reviews")
+    });
+  })
+  .then( () => {
+    const commentsTableSetupStr = `CREATE TABLE comments (
+    comment_id SERIAL PRIMARY KEY,
+    body VARCHAR NOT NULL,
+    votes INT DEFAULT 0,
+    author VARCHAR NOT NULL REFERENCES users(username) ON DELETE CASCADE,
+    review_id INT NOT NULL REFERENCES reviews(review_id) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
+    );`
+  
+    return db.query(commentsTableSetupStr)
+    .then(() => {
+    console.log("Table created: comments")
     });
   })
   
