@@ -46,22 +46,41 @@ describe("GET /api/reviews/:review_id", () => {
         .get(`/api/reviews/${review_id}`)
         .expect(200)
         .then(({body}) => {
-            console.log(body.review)
-            expect(body.review.length).toBe(10);
-            expect(body.review).toEqual(
-                expect.objectContaining({
-                    review_id: expect.any(Number),
-                    title: expect.any(String),
-                    designer: expect.any(String),
-                    owner: expect.any(String),
-                    review_img_url: expect.any(String),
-                    review_body: expect.any(String),
-                    category: expect.any(String),
-                    created_at: expect.any(String),
-                    votes: expect.any(Number),
-                    comment_count: expect.any(Number)
-                })
-            )
+            expect(body.review.review_id).toBe(review_id);
         });
+    });
+    test("status: 200, review object has required properties including owner and comment_count", () => {
+        const review_id = 2;
+        const expectedCreated_At = new Date(1610964101251).toISOString();
+        
+        const expectedResponse = {
+            review_id: 2,
+            title: 'Jenga',
+            designer: 'Leslie Scott',
+            owner: 'philippaclaire9',
+            review_img_url: 'https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png',
+            review_body: 'Fiddly fun for all the family',
+            category: 'dexterity',
+            created_at: expectedCreated_At, 
+            votes: 5,
+            comment_count: 3
+          };
+
+        return request(app)
+        .get(`/api/reviews/${review_id}`)
+        .expect(200)
+        .then(({body}) => {
+            console.log("test log ->", body.review)
+            expect(body.review.review_id).toBe(expectedResponse.review_id);
+            expect(body.review.title).toBe(expectedResponse.title);
+            expect(body.review.designer).toBe(expectedResponse.designer);
+            expect(body.review.owner).toBe(expectedResponse.owner);
+            expect(body.review.review_img_url).toBe(expectedResponse.review_img_url);
+            expect(body.review.review_body).toBe(expectedResponse.review_body);
+            expect(body.review.category).toBe(expectedResponse.category);
+            expect(body.review.created_at).toBe(expectedResponse.created_at);
+            expect(body.review.votes).toBe(expectedResponse.votes);
+            expect(body.review.comment_count).toBe(expectedResponse.comment_count)
+            })
     });
 });
