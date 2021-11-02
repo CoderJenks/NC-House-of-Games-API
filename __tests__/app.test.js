@@ -14,7 +14,7 @@ describe("GET /not-a-route", () => {
         .get("/not-a-route")
         .expect(404)
         .then(({body}) => {
-            expect(body.msg).toBe("path not found");
+            expect(body.msg).toBe("Path not found");
         });
     });
 });
