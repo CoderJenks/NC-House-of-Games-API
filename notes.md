@@ -41,6 +41,29 @@
     Sad Path
     - status: 500 {msg: "server error"}
     - status: 404 {msg: "path not found"}
+
+
+    ### **GET** `/api/reviews/:review_id`
+    Responds with a review object with the following properties:
+    - `owner` which is the `username` from the users table
+    - `title`
+    - `review_id`
+    - `review_body`
+    - `designer`
+    - `review_img_url`
+    - `category`
+    - `created_at`
+    - `votes`
+    - `comment_count` which is the total count of all the comments with this `review_id` - you should make use of queries to the database in order to achieve this
+
+
+    ERRORS
+    Happy Path
+    - status: 200 {"review": {,},....,{,}} DONE
+
+    Sad Path
+    - status: 500 {msg: "server error"}
+    - status: 404 {msg: "path not found"}
     
 
 
