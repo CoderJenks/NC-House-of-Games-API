@@ -70,7 +70,6 @@ describe("GET /api/reviews/:review_id", () => {
         .get(`/api/reviews/${review_id}`)
         .expect(200)
         .then(({body}) => {
-            console.log("test log ->", body.review)
             expect(body.review.review_id).toBe(expectedResponse.review_id);
             expect(body.review.title).toBe(expectedResponse.title);
             expect(body.review.designer).toBe(expectedResponse.designer);
