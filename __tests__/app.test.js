@@ -82,12 +82,20 @@ describe("GET /api/reviews/:review_id", () => {
             expect(body.review.comment_count).toBe(expectedResponse.comment_count)
             })
     });
-    test("status: 400, GET /api/reviews/dog responds with error message 'Invalid query'", () => {
+    test("status: 400, invalid review_id responds with error message 'Invalid query'", () => {
         return request(app)
         .get("/api/reviews/dog")
         .expect(400)
         .then(({body}) => {
             expect(body.msg).toBe("Invalid query");
+        });
+    })
+    test("status: 404, when provided with a valid review_id with no review", () => {
+        return request(app)
+        .get("/api/reviews/9999")
+        .expect(404)
+        .then(({body}) => {
+            expect(body.msg).toBe("Not Found");
         });
     })
 });
