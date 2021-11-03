@@ -165,7 +165,7 @@ describe("PATCH /api/reviews/:review_id", () => {
         .expect(400)
         .then(({body}) => {
             console.log(body)
-            expect(body.msg).toBe("change would result in invalid value");
+            expect(body.msg).toBe("Change would result in invalid value");
         });
     })
 })

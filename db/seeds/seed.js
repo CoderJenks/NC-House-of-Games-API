@@ -56,7 +56,8 @@ const seed = (data) => {
     category VARCHAR NOT NULL,
     FOREIGN KEY (category) REFERENCES categories(slug) ON DELETE CASCADE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-    votes INT DEFAULT 0
+    votes INT DEFAULT 0,
+     CONSTRAINT votes_nonnegative CHECK (votes >= 0)
     );`
   
     return db.query(reviewsTableSetupStr)

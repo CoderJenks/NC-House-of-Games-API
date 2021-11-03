@@ -1,6 +1,8 @@
 exports.handlePSQLErrors = (err, req, res, next) => {
     if(err.code === '22P02'){
     res.status(400).send({msg: "Invalid query"})
+    } else if(err.code === '23514'){
+    res.status(400).send({msg: "Change would result in invalid value"})
     } else {
         next(err);
     }
