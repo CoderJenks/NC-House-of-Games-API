@@ -164,8 +164,20 @@ describe("PATCH /api/reviews/:review_id", () => {
         .send(voteChange)
         .expect(400)
         .then(({body}) => {
-            console.log(body)
             expect(body.msg).toBe("Change would result in invalid value");
+        });
+    })
+    test("status: 400, returns error when inc_votes is invalid", () => {
+        const review_id = 3;
+        const voteChange = {
+            inc_votes : "cat"
+           };
+        return request(app)
+        .patch(`/api/reviews/${review_id}`)
+        .send(voteChange)
+        .expect(400)
+        .then(({body}) => {
+            expect(body.msg).toBe("Invalid query");
         });
     })
 })
