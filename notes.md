@@ -75,7 +75,14 @@
 
 ERRORS
     Happy Path
-    - status: 201 review updated
+    - status: 201 review updated DONE
+
+    Sad Path
+    - status: 500 {msg: "server error"} DONE
+    - status: 404 {msg: "path not found"} DONE
+    - status: 400 {msg: "Invalid query"} - invalid review_id DONE
+    - status: 404 {msg: "review not found"} - valid review_id but no review
+
 
 
 

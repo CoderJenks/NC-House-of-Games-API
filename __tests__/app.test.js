@@ -100,21 +100,58 @@ describe("GET /api/reviews/:review_id", () => {
     })
 });
 
-describe.only("PATCH /api/reviews/:review_id", () => {
+describe("PATCH /api/reviews/:review_id", () => {
     test("status: 200, responds with a review object for a specific review_id", () => {
         const review_id = 3;
         const voteChange = {
              inc_votes : 1
             };
+        const expectedOutput = {
+            review_id: 3,
+            title: 'Ultimate Werewolf',
+            designer: 'Akihisa Okui',
+            owner: 'bainesface',
+            review_img_url:
+              'https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png',
+            review_body: "We couldn't find the werewolf!",
+            category: 'social deduction',
+            created_at: new Date(1610964101251).toISOString(),
+            votes: 6
+          }
         
         return request(app)
         .patch(`/api/reviews/${review_id}`)
         .send(voteChange)
         .expect(200)
         .then(({body}) => {
-            console.log("--->", body)
             expect(body.review.review_id).toBe(review_id);
             expect(body.review.votes).toBe(6);
+            expect(body.review).toEqual(expectedOutput)
         });
     });
+    test("status: 400, invalid review_id responds with error message 'Invalid query'", () => {
+        const voteChange = {
+            inc_votes : 1
+           };
+        return request(app)
+        .patch("/api/reviews/dog")
+        .send(voteChange)
+        .expect(400)
+        .then(({body}) => {
+            expect(body.msg).toBe("Invalid query");
+        });
+    })
+    test.only("status: 404, when provided with a valid review_id with no review", () => {
+        const voteChange = {
+            inc_votes : 1
+           };
+        return request(app)
+        .patch("/api/reviews/9999")
+        .send(voteChange)
+        .expect(404)
+        .then(({body}) => {
+            console.log(body.review);
+            expect(body.msg).toBe("9999 not found");
+        });
+    })
 })

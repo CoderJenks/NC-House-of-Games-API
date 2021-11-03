@@ -29,6 +29,10 @@ exports.updateReviewById = (review_id, voteChange) => {
     [voteChange, review_id]
     )
     .then(({rows}) => {
+        if(rows.length !== 0) {
         return rows[0];
+        } else {
+            return Promise.reject({status: 404, msg: `${review_id} not found`})
+        }
     })
 }
