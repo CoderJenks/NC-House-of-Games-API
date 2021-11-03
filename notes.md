@@ -81,7 +81,9 @@ ERRORS
     - status: 500 {msg: "server error"} DONE
     - status: 404 {msg: "path not found"} DONE
     - status: 400 {msg: "Invalid query"} - invalid review_id DONE
-    - status: 404 {msg: "review not found"} - valid review_id but no review
+    - status: 404 {msg: "review not found"} - valid review_id but no review DONE
+    - status: 400 {msg: "change would result in invalid value"} - rejects as change would result in votes being a negative value.
+
 
 
 

@@ -25,14 +25,8 @@ exports.updateReviewById = (review_id, voteChange) => {
     UPDATE reviews
     SET votes = votes + $1
     WHERE review_id = $2
-    RETURNING *;`,
+    RETURNING *;
+    `,
     [voteChange, review_id]
     )
-    .then(({rows}) => {
-        if(rows.length !== 0) {
-        return rows[0];
-        } else {
-            return Promise.reject({status: 404, msg: `${review_id} not found`})
-        }
-    })
 }

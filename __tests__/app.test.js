@@ -116,7 +116,8 @@ describe("PATCH /api/reviews/:review_id", () => {
             review_body: "We couldn't find the werewolf!",
             category: 'social deduction',
             created_at: new Date(1610964101251).toISOString(),
-            votes: 6
+            votes: 6,
+            comment_count: 3
           }
         
         return request(app)
@@ -141,7 +142,7 @@ describe("PATCH /api/reviews/:review_id", () => {
             expect(body.msg).toBe("Invalid query");
         });
     })
-    test.only("status: 404, when provided with a valid review_id with no review", () => {
+    test("status: 404, when provided with a valid review_id with no review", () => {
         const voteChange = {
             inc_votes : 1
            };
@@ -150,8 +151,21 @@ describe("PATCH /api/reviews/:review_id", () => {
         .send(voteChange)
         .expect(404)
         .then(({body}) => {
-            console.log(body.review);
             expect(body.msg).toBe("9999 not found");
+        });
+    })
+    test("status: 400, returns error when inc_votes would reduce votes below zero", () => {
+        const review_id = 3;
+        const voteChange = {
+            inc_votes : -10
+           };
+        return request(app)
+        .patch(`/api/reviews/${review_id}`)
+        .send(voteChange)
+        .expect(400)
+        .then(({body}) => {
+            console.log(body)
+            expect(body.msg).toBe("change would result in invalid value");
         });
     })
 })

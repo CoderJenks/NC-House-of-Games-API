@@ -14,6 +14,7 @@ exports.patchReviewById = (req, res, next) => {
     const voteChange = req.body.inc_votes
 
     updateReviewById(review_id, voteChange)
+    .then(() => selectReviewById(review_id))
     .then((review) => {
         res.status(200).send({review});
     })
