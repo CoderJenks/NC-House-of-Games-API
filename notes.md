@@ -64,6 +64,8 @@
     Sad Path
     - status: 500 {msg: "server error"}
     - status: 404 {msg: "path not found"}
+    - status: 400 {msg: "Invalid query"} - invalid review_id
+    - status: 404 {msg: "review not found"} - valid review_id but no review
     
 
 

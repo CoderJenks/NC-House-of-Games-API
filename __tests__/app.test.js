@@ -95,7 +95,7 @@ describe("GET /api/reviews/:review_id", () => {
         .get("/api/reviews/9999")
         .expect(404)
         .then(({body}) => {
-            expect(body.msg).toBe("Not Found");
+            expect(body.msg).toBe("9999 not found");
         });
     })
 });
