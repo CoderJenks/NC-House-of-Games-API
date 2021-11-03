@@ -84,6 +84,7 @@ ERRORS
     - status: 404 {msg: "review not found"} - valid review_id but no review. DONE
     - status: 400 {msg: "change would result in invalid value"} - rejects as change would result in votes being a negative value. DONE
     - status: 400 {msg: "Invalid query"} - rejects invalid inc_votes. DONE
+    - status: 400 {msg: "Invalid query"} - rejects object with invalid key pairs.
 
 
 

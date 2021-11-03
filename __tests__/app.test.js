@@ -180,4 +180,19 @@ describe("PATCH /api/reviews/:review_id", () => {
             expect(body.msg).toBe("Invalid query");
         });
     })
+    test("status: 400, rejects object with invalid key pair", () => {
+        const review_id = 3;
+        const voteChange = {
+            inc_votes : 1,
+            name: 'Mitch'
+           };
+        return request(app)
+        .patch(`/api/reviews/${review_id}`)
+        .send(voteChange)
+        .expect(400)
+        .then(({body}) => {
+            console.log(body)
+            expect(body.msg).toBe("Invalid query");
+        });
+    })
 })
