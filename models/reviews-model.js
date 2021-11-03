@@ -11,10 +11,6 @@ exports.selectReviewById = (review_id) => {
     )
     .then(({rows}) => {
         const review = rows[0];
-        //2021-10-27 10-31-28
-
-
-
         if(rows.length !== 0) {
             rows[0]['comment_count'] = Number(rows[0]['comment_count']);
             return rows[0];
@@ -23,3 +19,16 @@ exports.selectReviewById = (review_id) => {
         }
     })
 };
+
+exports.updateReviewById = (review_id, voteChange) => {
+    return db.query(`
+    UPDATE reviews
+    SET votes = votes + $1
+    WHERE review_id = $2
+    RETURNING *;`,
+    [voteChange, review_id]
+    )
+    .then(({rows}) => {
+        return rows[0];
+    })
+}

@@ -99,3 +99,22 @@ describe("GET /api/reviews/:review_id", () => {
         });
     })
 });
+
+describe.only("PATCH /api/reviews/:review_id", () => {
+    test("status: 200, responds with a review object for a specific review_id", () => {
+        const review_id = 3;
+        const voteChange = {
+             inc_votes : 1
+            };
+        
+        return request(app)
+        .patch(`/api/reviews/${review_id}`)
+        .send(voteChange)
+        .expect(200)
+        .then(({body}) => {
+            console.log("--->", body)
+            expect(body.review.review_id).toBe(review_id);
+            expect(body.review.votes).toBe(6);
+        });
+    });
+})
