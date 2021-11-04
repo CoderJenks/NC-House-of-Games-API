@@ -39,3 +39,16 @@ exports.updateReviewById = (review_id, userInput) => {
     [userInput.inc_votes, review_id]
     )
 }
+
+exports.selectReviews = () => {
+    return db.query(`
+    SELECT reviews.*, COUNT(comments) AS comment_count
+    FROM reviews
+    LEFT JOIN comments ON reviews.review_id = comments.review_id 
+    GROUP BY reviews.review_id`
+    )
+    .then(({rows}) => {
+        
+        return rows
+    })
+};

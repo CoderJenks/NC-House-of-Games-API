@@ -209,3 +209,30 @@ describe("PATCH /api/reviews/:review_id", () => {
     })
 })
 
+describe("GET /api/reviews", () => (
+    test("status: 200, responds with an array of reviews", () => {
+        return request(app)
+        .get("/api/reviews")
+        .expect(200)
+        .then(({body}) => {
+            console.log(body.reviews)
+            expect(body.reviews.length).toBe(13);
+            body.reviews.forEach((review) => {
+                expect(review).toEqual(
+                    expect.objectContaining({
+                        owner: expect.any(String),
+                        title: expect.any(String),
+                        review_id: expect.any(Number),
+                        category: expect.any(String),
+                        review_img_url: expect.any(String),
+                        created_at: expect.any(String),
+                        votes: expect.any(Number),
+                        comment_count: expect.any(Number)
+                    })
+
+                )
+
+            })
+        })
+    })
+))

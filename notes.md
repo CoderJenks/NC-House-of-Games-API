@@ -87,8 +87,37 @@ ERRORS
     - status: 400 {msg: "change would result in invalid value"} - rejects as change would result in votes being a negative value. DONE
     - status: 400 {msg: "Invalid query"} - rejects invalid inc_votes. DONE
     - status: 400 {msg: "Invalid query"} - rejects object with invalid key pairs. DONE
+    
+
+### **GET** `/api/reviews/`
+    Responds with an array of review objects with the following properties:
+    - `owner` which is the `username` from the users table
+    - `title`
+    - `review_id`
+    - `category`
+    - `review_img_url`
+    - `created_at`
+    - `votes`
+    - `comment_count` which is the total count of all the comments with this `review_id` - you should make use of queries to the database in order to achieve this
+
+    Task doesn't mention the properties:
+    - `review_body`
+    - `designer`
+
+    Should accept queries:
+    - 'sort_by', which sorts the reviews by any valid column (defaults to date)
+    -'order', which can be set to asc or desc for ascending or descending (defaults to descending)
+    'category', which filters the reviews by the category value specified in the query
 
 
+
+    ERRORS
+    Happy Path
+    - status: 200 {"reviews": {,},....,{,}} 
+
+    Sad Path
+    - status: 500 {msg: "server error"}
+    - status: 404 {msg: "path not found"}
 
 
 
