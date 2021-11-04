@@ -2,8 +2,12 @@ const apiRouter = require("express").Router();
 const categoriesRouter = require('./categories-router.js');
 const reviewsRouter = require("./reviews-router.js");
 
-apiRouter.use("/categories",categoriesRouter)
-apiRouter.use("/reviews",reviewsRouter)
+apiRouter.get("/", (req, res) => {
+    res.status(200).send({ msg: "Welcome to the House of Games"})
+});
+
+apiRouter.use("/categories",categoriesRouter);
+apiRouter.use("/reviews",reviewsRouter);
 
 
 module.exports = apiRouter
