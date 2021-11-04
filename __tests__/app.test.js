@@ -209,7 +209,7 @@ describe("PATCH /api/reviews/:review_id", () => {
     })
 })
 
-describe("GET /api/reviews", () => (
+describe("GET /api/reviews", () => {
     test("status: 200, responds with an array of reviews", () => {
         return request(app)
         .get("/api/reviews")
@@ -234,4 +234,13 @@ describe("GET /api/reviews", () => (
             })
         })
     })
-))
+    test("status: 200, reviews are sorted by descending date by default", () => {
+        return request(app)
+        .get("/api/reviews")
+        .expect(200)
+        .then(({body}) => {
+            expect(body.reviews).toBeSortedBy("created_at",{ descending: true });
+        })
+    })
+})
+
