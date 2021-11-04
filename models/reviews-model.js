@@ -21,6 +21,7 @@ exports.selectReviewById = (review_id) => {
 };
 
 exports.updateReviewById = (review_id, voteChange) => {
+
     return db.query(`
     UPDATE reviews
     SET votes = votes + $1
@@ -29,4 +30,5 @@ exports.updateReviewById = (review_id, voteChange) => {
     `,
     [voteChange, review_id]
     )
+
 }
