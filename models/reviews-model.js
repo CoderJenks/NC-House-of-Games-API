@@ -20,7 +20,15 @@ exports.selectReviewById = (review_id) => {
     })
 };
 
-exports.updateReviewById = (review_id, voteChange) => {
+exports.updateReviewById = (review_id, userInput) => {
+    const validKeys = Object.keys(userInput).filter((key) => {
+        if (key === "inc_votes") {
+            return true
+        }
+    })
+    if (Object.keys(userInput).length !== validKeys.length){
+        return Promise.reject({status:400, msg: "Invalid query"})
+    }
 
     return db.query(`
     UPDATE reviews
@@ -28,7 +36,6 @@ exports.updateReviewById = (review_id, voteChange) => {
     WHERE review_id = $2
     RETURNING *;
     `,
-    [voteChange, review_id]
+    [userInput.inc_votes, review_id]
     )
-
 }

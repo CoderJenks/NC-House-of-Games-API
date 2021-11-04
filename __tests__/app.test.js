@@ -154,6 +154,19 @@ describe("PATCH /api/reviews/:review_id", () => {
             expect(body.msg).toBe("9999 not found");
         });
     })
+    test("status: 200, allows negative votes if votes don't reduce below zero", () => {
+        const review_id = 3;
+        const voteChange = {
+            inc_votes : -1
+           };
+        return request(app)
+        .patch(`/api/reviews/${review_id}`)
+        .send(voteChange)
+        .expect(200)
+        .then(({body}) => {
+            expect(body.review.votes).toBe(4);
+        });
+    })
     test("status: 400, returns error when inc_votes would reduce votes below zero", () => {
         const review_id = 3;
         const voteChange = {
@@ -191,8 +204,8 @@ describe("PATCH /api/reviews/:review_id", () => {
         .send(voteChange)
         .expect(400)
         .then(({body}) => {
-            console.log(body)
             expect(body.msg).toBe("Invalid query");
         });
     })
 })
+

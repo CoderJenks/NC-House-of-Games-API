@@ -75,7 +75,9 @@
 
 ERRORS
     Happy Path
-    - status: 201 review updated DONE
+    - status: 200 review updated DONE
+    - status: 200 review updated with negative inc_votes DONE
+
 
     Sad Path
     - status: 500 {msg: "server error"} DONE
@@ -84,7 +86,7 @@ ERRORS
     - status: 404 {msg: "review not found"} - valid review_id but no review. DONE
     - status: 400 {msg: "change would result in invalid value"} - rejects as change would result in votes being a negative value. DONE
     - status: 400 {msg: "Invalid query"} - rejects invalid inc_votes. DONE
-    - status: 400 {msg: "Invalid query"} - rejects object with invalid key pairs.
+    - status: 400 {msg: "Invalid query"} - rejects object with invalid key pairs. DONE
 
 
 
