@@ -1,3 +1,4 @@
+const { forEach } = require('methods');
 const db = require('../db/connection.js');
 
 exports.selectReviewById = (review_id) => {
@@ -10,7 +11,6 @@ exports.selectReviewById = (review_id) => {
     [review_id]
     )
     .then(({rows}) => {
-        const review = rows[0];
         if(rows.length !== 0) {
             rows[0]['comment_count'] = Number(rows[0]['comment_count']);
             return rows[0];
@@ -48,7 +48,9 @@ exports.selectReviews = () => {
     GROUP BY reviews.review_id`
     )
     .then(({rows}) => {
-        
+        rows.forEach((row) => {
+            row.comment_count = Number(row.comment_count)
+        })
         return rows
     })
 };

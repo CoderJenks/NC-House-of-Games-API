@@ -215,7 +215,6 @@ describe("GET /api/reviews", () => (
         .get("/api/reviews")
         .expect(200)
         .then(({body}) => {
-            console.log(body.reviews)
             expect(body.reviews.length).toBe(13);
             body.reviews.forEach((review) => {
                 expect(review).toEqual(
