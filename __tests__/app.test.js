@@ -244,10 +244,11 @@ describe("GET /api/reviews", () => {
     })
     test("status: 200, accepts a sort_by query", () => {
         return request(app)
-        .get("/api/reviews?sort_by=title")
+        .get("/api/reviews?sort_by=owner")
         .expect(200)
         .then(({body}) => {
-            expect(body.reviews).toBeSortedBy("title",{ descending: true });
+            // console.log(body.reviews)
+            expect(body.reviews).toBeSortedBy("owner",{ descending: true });
         })
     })
 })

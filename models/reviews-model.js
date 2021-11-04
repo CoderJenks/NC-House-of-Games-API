@@ -40,13 +40,14 @@ exports.updateReviewById = (review_id, userInput) => {
     )
 }
 
-exports.selectReviews = () => {
+exports.selectReviews = (sort_by) => {
+
     return db.query(`
     SELECT reviews.*, COUNT(comments) AS comment_count
     FROM reviews
     LEFT JOIN comments ON reviews.review_id = comments.review_id
     GROUP BY reviews.review_id
-    ORDER BY reviews.created_at DESC`
+    ORDER BY reviews.${sort_by} DESC`
     )
     .then(({rows}) => {
         rows.forEach((row) => {
