@@ -113,11 +113,14 @@ ERRORS
 
     ERRORS
     Happy Path
-    - status: 200 {"reviews": {,},....,{,}} 
+    - status: 200 {"reviews": {,},....,{,}}
+    - status: 200 - accepts a query
+    - status: 200 - accepts an order
 
     Sad Path
     - status: 500 {msg: "server error"}
     - status: 404 {msg: "path not found"}
+    - status: 400 {msg: "Invalid sort_by query"}
 
 
 

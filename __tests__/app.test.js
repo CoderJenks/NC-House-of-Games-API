@@ -258,5 +258,13 @@ describe("GET /api/reviews", () => {
             expect(body.msg).toBe("Invalid sort_by query");
         })
     })
+    test("status: 200, accepts order query", () => {
+        return request(app)
+        .get("/api/reviews?order=asc")
+        .expect(200)
+        .then(({body}) => {
+            expect(body.reviews).toBeSortedBy("created_at",{ ascending: true });
+        })
+    })
 })
 
