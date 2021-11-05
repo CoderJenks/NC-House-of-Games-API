@@ -1,3 +1,4 @@
+const { sort } = require("methods");
 const { selectReviewById, updateReviewById, selectReviews, selectCommentsByReview } = require("../models/reviews-model.js");
 
 exports.getReviewById = (req, res, next) => {

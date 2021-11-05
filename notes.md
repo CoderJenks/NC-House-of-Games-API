@@ -73,7 +73,7 @@
     - Accepts an object in the form { inc_votes: newVote } where newVote is a number that will be added to the existing votes in the existing review. 
     - Responds with a review object with the updated review.
 
-ERRORS
+    ERRORS
     Happy Path
     - status: 200 review updated DONE
     - status: 200 review updated with negative inc_votes DONE
@@ -125,6 +125,30 @@ ERRORS
     - status: 400 {msg: "Invalid sort_by query"} - column doesn't exist DONE
     - status: 400 {msg: "Invalid sort_by query"} - order isn't "asc" or "desc" DONE
     - status: 400 {msg: "Invalid category query"} - category doesn't exist
+
+
+### **GET** `/api/reviews/:review_id/comments`
+    Responds with an array of comments for the given 'review_id' of which each comment should have the following properties:
+    - `comment_id`
+    - `votes`
+    - `created_at`
+    - `author` which is the username from the users table
+    - `body`
+
+
+    ERRORS
+    Happy Path
+    - status: 200 {"comments": {,},....,{,}} DONE
+   
+    Sad Path
+    - status: 500 {msg: "server error"}
+    - status: 404 {msg: "path not found"} DONE
+    - status: 400 {msg: "Invalid query"} - invalid review_id. DONE
+    - status: 404 {msg: "review not found"} - valid review_id but no review. DONE
+    - status: 404 {msg: "review not found"} - valid review_id, review exists but no comments
+
+
+
 
 
 

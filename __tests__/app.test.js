@@ -258,6 +258,16 @@ describe("GET /api/reviews", () => {
             expect(body.msg).toBe("Invalid sort_by query");
         })
     })
+    test.only("status: 400, responds with error message for invalid sort_by query 'not-a-column'", () => {
+        query = "(not-a-column)"
+        return request(app)
+        .get(`/api/reviews?sort_by=${query}`)
+        .expect(400)
+        .then(({body}) => {
+            expect(body.msg).toBe("Invalid sort_by query");
+        })
+    })
+    
     test("status: 200, accepts order query", () => {
         return request(app)
         .get("/api/reviews?order=asc")
@@ -314,7 +324,7 @@ describe("GET /api/reviews", () => {
     })
 })
 
-describe.only("GET /api/reviews/:review_id/comments", () => {
+describe("GET /api/reviews/:review_id/comments", () => {
     test("status 200, responds with an array of comments for specified review", () => {
         const review_id = 2
         
@@ -322,7 +332,6 @@ describe.only("GET /api/reviews/:review_id/comments", () => {
         .get(`/api/reviews/${review_id}/comments`)
         .expect(200)
         .then(({body}) => {
-            console.log(body.comments)
             expect(body.comments.length).toBe(3);
             body.comments.forEach((comment) => {
                 expect(comment).toEqual(
@@ -340,5 +349,21 @@ describe.only("GET /api/reviews/:review_id/comments", () => {
             })
         })
 
+    })
+    test("status: 400, invalid review_id responds with error message 'Invalid query'", () => {
+        return request(app)
+        .get("/api/reviews/dog/comments")
+        .expect(400)
+        .then(({body}) => {
+            expect(body.msg).toBe("Invalid query");
+        });
+    })
+    test("status: 404, when provided with a valid review_id with no review", () => {
+        return request(app)
+        .get("/api/reviews/9999/comments")
+        .expect(404)
+        .then(({body}) => {
+            expect(body.msg).toBe("9999 not found");
+        });
     })
 })
