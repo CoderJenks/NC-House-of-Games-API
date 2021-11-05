@@ -209,7 +209,7 @@ describe("PATCH /api/reviews/:review_id", () => {
     })
 })
 
-describe.only("GET /api/reviews", () => {
+describe("GET /api/reviews", () => {
     test("status: 200, responds with an array of reviews", () => {
         return request(app)
         .get("/api/reviews")
@@ -314,7 +314,7 @@ describe.only("GET /api/reviews", () => {
     })
 })
 
-describe("GET /api/reviews/:review_id/comments", () => {
+describe.only("GET /api/reviews/:review_id/comments", () => {
     test("status 200, responds with an array of comments for specified review", () => {
         const review_id = 2
         
@@ -322,6 +322,7 @@ describe("GET /api/reviews/:review_id/comments", () => {
         .get(`/api/reviews/${review_id}/comments`)
         .expect(200)
         .then(({body}) => {
+            console.log(body.comments)
             expect(body.comments.length).toBe(3);
             body.comments.forEach((comment) => {
                 expect(comment).toEqual(
@@ -330,7 +331,7 @@ describe("GET /api/reviews/:review_id/comments", () => {
                         body: expect.any(String),
                         votes: expect.any(Number),
                         author: expect.any(String),
-                        review_id: expect.any(String),
+                        review_id: expect.any(Number),
                         created_at: expect.any(String)
                     })
 

@@ -58,13 +58,16 @@ exports.selectReviews = async (sort_by = "created_at", order = "desc", category)
     const queryValues = [];
 
     if(category){
+        
+        // ALTERNATIVE SOLUTION
         // const checkStr = `SELECT * FROM categories WHERE slug = $1;`;
         // const {rows} = await db.query(checkStr, [category])
         //     if(rows.length === 0){
-        //         return Promise.reject({status:404, msg: "Category not found"})
+        //         return Promise.reject({status:404, msg: "value not found"})
         //     }
         
         await checkExists("categories","slug",category)
+        // Used a utility function instead
 
         
         queryValues.push(category);
@@ -86,6 +89,14 @@ exports.selectReviews = async (sort_by = "created_at", order = "desc", category)
     });
 };
 
-// exports.selectCommentsByReview = (review_id) => {
-
-// } 
+exports.selectCommentsByReview = (review_id) => {
+    return db.query(`
+    SELECT *
+    FROM comments
+     WHERE review_id = $1;`,
+    [review_id]
+    )
+    .then(({rows}) => {
+        return rows
+    })
+} 

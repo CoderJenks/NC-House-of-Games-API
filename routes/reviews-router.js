@@ -10,8 +10,8 @@ reviewsRouter
 .route("/")
 .get(getReviews)
 
-// reviewsRouter
-// .route("/:review_id/comments")
-// .get(getCommentsByReview)
+reviewsRouter
+.route("/:review_id/comments")
+.get(getCommentsByReview)
 
 module.exports = reviewsRouter;
