@@ -252,10 +252,10 @@ describe("GET /api/reviews", () => {
     })
     test("status: 400, responds with error message for invalid sort_by query", () => {
         return request(app)
-        .get("/api/reviews?sort_by=not-an-column")
+        .get("/api/reviews?sort_by=not_a_column")
         .expect(400)
         .then(({body}) => {
-            expect(body.msg).toBeSortedBy("invalid sort_by query");
+            expect(body.msg).toBe("Invalid sort_by query");
         })
     })
 })
