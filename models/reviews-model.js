@@ -58,7 +58,7 @@ exports.selectReviews = async (sort_by = "created_at", order = "desc", category)
     const queryValues = [];
 
     if(category){
-        const checkStr = `SELECT * FROM reviews WHERE category = $1;`;
+        // const checkStr = `SELECT * FROM categories WHERE slug = $1;`;
         // const {rows} = await db.query(checkStr, [category])
         //     if(rows.length === 0){
         //         return Promise.reject({status:404, msg: "Category not found"})
