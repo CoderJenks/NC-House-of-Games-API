@@ -41,14 +41,18 @@ exports.updateReviewById = (review_id, userInput) => {
 }
 
 exports.selectReviews = (sort_by) => {
+    if(!sort_by) {
+        sort_by = "created_at"
+    }
 
-    return db.query(`
+    let queryStr = `
     SELECT reviews.*, COUNT(comments) AS comment_count
     FROM reviews
     LEFT JOIN comments ON reviews.review_id = comments.review_id
     GROUP BY reviews.review_id
     ORDER BY reviews.${sort_by} DESC`
-    )
+        
+    return db.query(queryStr)
     .then(({rows}) => {
         rows.forEach((row) => {
             row.comment_count = Number(row.comment_count)
