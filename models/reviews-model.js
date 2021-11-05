@@ -40,10 +40,7 @@ exports.updateReviewById = (review_id, userInput) => {
     )
 }
 
-exports.selectReviews = (sort_by) => {
-    if(!sort_by) {
-        sort_by = "created_at"
-    }
+exports.selectReviews = (sort_by = "created_at") => {
 
     let queryStr = `
     SELECT reviews.*, COUNT(comments) AS comment_count

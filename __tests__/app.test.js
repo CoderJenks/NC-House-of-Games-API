@@ -247,8 +247,15 @@ describe("GET /api/reviews", () => {
         .get("/api/reviews?sort_by=owner")
         .expect(200)
         .then(({body}) => {
-            // console.log(body.reviews)
             expect(body.reviews).toBeSortedBy("owner",{ descending: true });
+        })
+    })
+    test("status: 400, responds with error message for invalid sort_by query", () => {
+        return request(app)
+        .get("/api/reviews?sort_by=not-an-column")
+        .expect(400)
+        .then(({body}) => {
+            expect(body.msg).toBeSortedBy("invalid sort_by query");
         })
     })
 })
