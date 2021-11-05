@@ -209,7 +209,7 @@ describe("PATCH /api/reviews/:review_id", () => {
     })
 })
 
-describe("GET /api/reviews", () => {
+describe.only("GET /api/reviews", () => {
     test("status: 200, responds with an array of reviews", () => {
         return request(app)
         .get("/api/reviews")
@@ -304,13 +304,40 @@ describe("GET /api/reviews", () => {
             expect(body.reviews).toEqual(expectedOutput);
         })
     })
-    test("status: 400, responds with error message for invalid order query", () => {
+    test("status: 404, responds with error message for invalid category query", () => {
         return request(app)
         .get("/api/reviews?category=NotACategory")
-        .expect(400)
+        .expect(404)
         .then(({body}) => {
-            expect(body.msg).toBe("Invalid category query");
+            expect(body.msg).toBe("value not found");
         })
     })
 })
 
+describe("GET /api/reviews/:review_id/comments", () => {
+    test("status 200, responds with an array of comments for specified review", () => {
+        const review_id = 2
+        
+        return request(app)
+        .get(`/api/reviews/${review_id}/comments`)
+        .expect(200)
+        .then(({body}) => {
+            expect(body.comments.length).toBe(3);
+            body.comments.forEach((comment) => {
+                expect(comment).toEqual(
+                    expect.objectContaining({
+                        comment_id: expect.any(Number),
+                        body: expect.any(String),
+                        votes: expect.any(Number),
+                        author: expect.any(String),
+                        review_id: expect.any(String),
+                        created_at: expect.any(String)
+                    })
+
+                )
+
+            })
+        })
+
+    })
+})

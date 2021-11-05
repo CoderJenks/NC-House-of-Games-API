@@ -30,3 +30,5 @@ exports.getReviews = (req, res, next) => {
     })
     .catch(next);
 };
+
+// exports.getCommentsByReview = (req, res, next) => {}
