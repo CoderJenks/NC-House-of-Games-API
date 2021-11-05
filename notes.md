@@ -117,12 +117,14 @@ ERRORS
     - status: 200 - accepts a sort_by query DONE
     - status: 200 - accepts an order query DONE
     - status: 200 - accepts a query with both sort_by and order DONE
+    - status: 200 - accepts a category query which filters results by the category DONE
 
     Sad Path
     - status: 500 {msg: "server error"}
     - status: 404 {msg: "path not found"} DONE
     - status: 400 {msg: "Invalid sort_by query"} - column doesn't exist DONE
     - status: 400 {msg: "Invalid sort_by query"} - order isn't "asc" or "desc" DONE
+    - status: 400 {msg: "Invalid category query"} - category doesn't exist
 
 
 

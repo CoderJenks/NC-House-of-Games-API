@@ -40,7 +40,7 @@ exports.updateReviewById = (review_id, userInput) => {
     )
 }
 
-exports.selectReviews = (sort_by = "created_at", order = "desc") => {
+exports.selectReviews = (sort_by = "created_at", order = "desc", category) => {
     if(!["asc","desc"].includes(order)){
         return Promise.reject({status: 400, msg: "Invalid order query"})
     };
@@ -48,11 +48,25 @@ exports.selectReviews = (sort_by = "created_at", order = "desc") => {
     let queryStr = `
     SELECT reviews.*, COUNT(comments) AS comment_count
     FROM reviews
-    LEFT JOIN comments ON reviews.review_id = comments.review_id
+    LEFT JOIN comments
+    ON reviews.review_id = comments.review_id`;
+ 
+    
+    const queryValues = [];
+
+    if(category){
+        queryValues.push(category);
+        queryStr += `
+        WHERE category = $1`
+    };
+    
+    
+    queryStr += `
     GROUP BY reviews.review_id
-    ORDER BY reviews.${sort_by} ${order}`;
-        
-    return db.query(queryStr)
+    ORDER BY reviews.${sort_by} ${order};`;
+    
+    
+    return db.query(queryStr,queryValues)
     .then(({rows}) => {
         rows.forEach((row) => {
             row.comment_count = Number(row.comment_count)

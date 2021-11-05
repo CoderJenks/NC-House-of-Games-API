@@ -283,7 +283,7 @@ describe("GET /api/reviews", () => {
         })
     })
     test("status: 200, returns reviews for a specified category ", () => {
-        const expectedOutput = {
+        const expectedOutput = [{
             review_id: 2,
             title: 'Jenga',
             designer: 'Leslie Scott',
@@ -292,17 +292,24 @@ describe("GET /api/reviews", () => {
               'https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png',
             review_body: 'Fiddly fun for all the family',
             category: 'dexterity',
-            created_at: new Date(1610964101251),
+            created_at: new Date(1610964101251).toISOString(),
             votes: 5,
             comment_count: 3
-          }
+          }];
 
         return request(app)
         .get("/api/reviews?category=dexterity")
         .expect(200)
         .then(({body}) => {
-            // console.log(body.reviews)
-            expect(body.reviews).toBe(expectedOutput);
+            expect(body.reviews).toEqual(expectedOutput);
+        })
+    })
+    test("status: 400, responds with error message for invalid order query", () => {
+        return request(app)
+        .get("/api/reviews?category=NotACategory")
+        .expect(400)
+        .then(({body}) => {
+            expect(body.msg).toBe("Invalid category query");
         })
     })
 })
