@@ -55,7 +55,7 @@ const seed = (data) => {
     review_body VARCHAR NOT NULL,
     category VARCHAR NOT NULL,
     FOREIGN KEY (category) REFERENCES categories(slug) ON DELETE CASCADE,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0),
     votes INT DEFAULT 0,
      CONSTRAINT votes_nonnegative CHECK (votes >= 0)
     );`
@@ -72,7 +72,7 @@ const seed = (data) => {
     votes INT DEFAULT 0,
     author VARCHAR NOT NULL REFERENCES users(username) ON DELETE CASCADE,
     review_id INT NOT NULL REFERENCES reviews(review_id) ON DELETE CASCADE,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0)
     );`
   
     return db.query(commentsTableSetupStr)

@@ -79,7 +79,6 @@ exports.selectReviews = async (sort_by = "created_at", order = "desc", category)
     GROUP BY reviews.review_id
     ORDER BY reviews.${sort_by} ${order};`;
     
-    console.log(queryStr)
     
     return db.query(queryStr,queryValues)
     .then(({rows}) => {

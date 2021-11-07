@@ -23,9 +23,11 @@ exports.patchReviewById = (req, res, next) => {
 }
 
 exports.getReviews = (req, res, next) => {
-    const { sort_by , order, category } = req.query
+    const { sort_by , order, category } = req.query;
+    let sort_by_string = sort_by;
+    if(sort_by !== undefined){sort_by_string = '"'+sort_by+'"'};
 
-    selectReviews(sort_by, order, category)
+    selectReviews(sort_by_string, order, category)
     .then((reviews) => {
         res.status(200).send({reviews});
     })

@@ -258,16 +258,15 @@ describe("GET /api/reviews", () => {
             expect(body.msg).toBe("Invalid sort_by query");
         })
     })
-    test.only("status: 400, responds with error message for invalid sort_by query 'not-a-column'", () => {
-        query = "(not-a-column)"
+    test("status: 400, responds with error message for invalid sort_by query 'not-a-column'", () => {
+        query = "not-a-column"
         return request(app)
-        .get(`/api/reviews?sort_by=${query}`)
+        .get(`/api/reviews?sort_by=not-a-column`)
         .expect(400)
         .then(({body}) => {
             expect(body.msg).toBe("Invalid sort_by query");
         })
-    })
-    
+    })   
     test("status: 200, accepts order query", () => {
         return request(app)
         .get("/api/reviews?order=asc")
@@ -325,7 +324,7 @@ describe("GET /api/reviews", () => {
 })
 
 describe("GET /api/reviews/:review_id/comments", () => {
-    test("status 200, responds with an array of comments for specified review", () => {
+    test("status: 200, responds with an array of comments for specified review", () => {
         const review_id = 2
         
         return request(app)
