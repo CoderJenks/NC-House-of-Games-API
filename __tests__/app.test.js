@@ -349,6 +349,16 @@ describe("GET /api/reviews", () => {
             expect(body.msg).toBe("value not found");
         })
     })
+    test("status: 200, returns empty array for a valid category with no reviews", () => {
+        const expectedOutput = {reviews: []};
+
+        return request(app)
+        .get("/api/reviews?category=children's games")
+        .expect(200)
+        .then(({body}) => {
+            expect(body).toEqual(expectedOutput);
+        })
+    })
 })
 
 describe("GET /api/reviews/:review_id/comments", () => {
@@ -392,5 +402,16 @@ describe("GET /api/reviews/:review_id/comments", () => {
         .then(({body}) => {
             expect(body.msg).toBe("9999 not found");
         });
+    })
+    test.only("status: 200, returns empty array for a valid review id with no comments", () => {
+        const expectedOutput = {comments: []};
+        const review_id = 1
+        
+        return request(app)
+        .get(`/api/reviews/${review_id}/comments`)
+        .expect(200)
+        .then(({body}) => {
+            expect(body).toEqual(expectedOutput);
+        })
     })
 })

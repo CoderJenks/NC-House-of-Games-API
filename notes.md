@@ -118,13 +118,14 @@
     - status: 200 - accepts an order query DONE
     - status: 200 - accepts a query with both sort_by and order DONE
     - status: 200 - accepts a category query which filters results by the category DONE
+    - status: 200 - category exists but has no reviews.  Returns an empty array DONE
 
     Sad Path
     - status: 500 {msg: "server error"}
     - status: 404 {msg: "path not found"} DONE
     - status: 400 {msg: "Invalid sort_by query"} - column doesn't exist DONE
-    - status: 400 {msg: "Invalid sort_by query"} - order isn't "asc" or "desc" DONE
-    - status: 400 {msg: "Invalid category query"} - category doesn't exist
+    - status: 400 {msg: "Invalid order query"} - order isn't "asc" or "desc" DONE
+    - status: 400 {msg: "Value not found"} - category doesn't exist DONE
 
 
 ### **GET** `/api/reviews/:review_id/comments`
@@ -139,13 +140,13 @@
     ERRORS
     Happy Path
     - status: 200 {"comments": {,},....,{,}} DONE
+    - status: 200 - review exists but has no comments. Returns an empty array
    
     Sad Path
     - status: 500 {msg: "server error"}
     - status: 404 {msg: "path not found"} DONE
     - status: 400 {msg: "Invalid query"} - invalid review_id. DONE
     - status: 404 {msg: "review not found"} - valid review_id but no review. DONE
-    - status: 404 {msg: "review not found"} - valid review_id, review exists but no comments
 
 
 
