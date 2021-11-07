@@ -78,7 +78,6 @@
     - status: 200 review updated DONE
     - status: 200 review updated with negative inc_votes DONE
 
-
     Sad Path
     - status: 500 {msg: "server error"} DONE
     - status: 404 {msg: "path not found"} DONE
@@ -87,6 +86,7 @@
     - status: 400 {msg: "change would result in invalid value"} - rejects as change would result in votes being a negative value. DONE
     - status: 400 {msg: "Invalid query"} - rejects invalid inc_votes. DONE
     - status: 400 {msg: "Invalid query"} - rejects object with invalid key pairs. DONE
+    - status: 200 ignores patch request with empty body and returns unchanged review DONE
     
 
 ### **GET** `/api/reviews/`

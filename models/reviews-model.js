@@ -22,6 +22,8 @@ exports.selectReviewById = (review_id) => {
 };
 
 exports.updateReviewById = (review_id, userInput) => {
+    if(Object.keys(userInput).length === 0){userInput.inc_votes = 0}
+
     const validKeys = Object.keys(userInput).filter((key) => {
         if (key === "inc_votes") {
             return true
@@ -30,7 +32,7 @@ exports.updateReviewById = (review_id, userInput) => {
     if (Object.keys(userInput).length !== validKeys.length){
         return Promise.reject({status:400, msg: "Invalid query"})
     }
-
+    
     return db.query(`
     UPDATE reviews
     SET votes = votes + $1
@@ -78,7 +80,7 @@ exports.selectReviews = async (sort_by = "created_at", order = "desc", category)
     queryStr += `
     GROUP BY reviews.review_id
     ORDER BY reviews.${sort_by} ${order};`;
-    
+
     
     return db.query(queryStr,queryValues)
     .then(({rows}) => {

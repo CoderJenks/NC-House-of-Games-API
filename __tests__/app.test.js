@@ -207,6 +207,34 @@ describe("PATCH /api/reviews/:review_id", () => {
             expect(body.msg).toBe("Invalid query");
         });
     })
+    test("status: 200, ignores patch request with empty body and returns unchanged review", () => {
+        const review_id = 3;
+        const voteChange = {
+            };
+        const expectedOutput = {
+            review_id: 3,
+            title: 'Ultimate Werewolf',
+            designer: 'Akihisa Okui',
+            owner: 'bainesface',
+            review_img_url:
+              'https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png',
+            review_body: "We couldn't find the werewolf!",
+            category: 'social deduction',
+            created_at: new Date(1610964101251).toISOString(),
+            votes: 5,
+            comment_count: 3
+          }
+        
+        return request(app)
+        .patch(`/api/reviews/${review_id}`)
+        .send(voteChange)
+        .expect(200)
+        .then(({body}) => {
+            expect(body.review.review_id).toBe(review_id);
+            expect(body.review.votes).toBe(5);
+            expect(body.review).toEqual(expectedOutput)
+        });
+    });
 })
 
 describe("GET /api/reviews", () => {
