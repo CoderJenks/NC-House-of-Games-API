@@ -91,7 +91,12 @@ exports.selectReviews = async (sort_by = "created_at", order = "desc", category)
     });
 };
 
-exports.selectCommentsByReview = (review_id) => {
+exports.selectCommentsByReview = async (review_id) => {
+    if(review_id){  
+        await checkExists("reviews","review_id",review_id)
+    };
+
+
     return db.query(`
     SELECT *
     FROM comments
@@ -99,10 +104,6 @@ exports.selectCommentsByReview = (review_id) => {
     [review_id]
     )
     .then(({rows}) => {
-        if(rows.length !== 0) {
-        return rows;
-        } else {
-            return Promise.reject({status: 404, msg: `${review_id} not found`})
-        }       
+        return rows;     
     })
 } 

@@ -400,10 +400,10 @@ describe("GET /api/reviews/:review_id/comments", () => {
         .get("/api/reviews/9999/comments")
         .expect(404)
         .then(({body}) => {
-            expect(body.msg).toBe("9999 not found");
+            expect(body.msg).toBe("value not found");
         });
     })
-    test.only("status: 200, returns empty array for a valid review id with no comments", () => {
+    test("status: 200, returns empty array for a valid review id with no comments", () => {
         const expectedOutput = {comments: []};
         const review_id = 1
         
