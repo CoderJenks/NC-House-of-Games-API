@@ -415,3 +415,18 @@ describe("GET /api/reviews/:review_id/comments", () => {
         })
     })
 })
+
+describe("POST /api/reviews/:review_id/comments", () => {
+    test.only("status 201, returns a comment with inputted body and username", () => {
+        const review_id = 1;
+        const input = {body: "This game is great", author: "mallionaire"};
+        
+        return request(app)
+        .post(`/api/reviews/${review_id}/comments`)
+        .send(input)
+        .expect(201)
+        .then(({body}) => {
+            expect(body.sg.toBe("comment created"))
+        })
+    })
+})

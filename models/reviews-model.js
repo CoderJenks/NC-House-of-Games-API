@@ -106,4 +106,45 @@ exports.selectCommentsByReview = async (review_id) => {
     .then(({rows}) => {
         return rows;     
     })
-} 
+}
+
+exports.createCommentByReview = async (review_id) => {
+    if(review_id){  
+        await checkExists("reviews","review_id",review_id)
+    };
+
+
+    return db.query(`
+    INSERT INTO comments
+        (
+            body,
+            author,
+            review_id,
+        )
+    VALUES
+    ($1,$2,$3),
+    RETURNING comment_id
+    ;`,
+    [body, username, review_id]
+    )
+    //need to return new comment from psql
+    .then(({rows}) => {
+        console.log(rows)
+        // return rows;     
+    })
+}
+
+// INSERT INTO books
+//     (
+//     title,
+//     price_in_pence,
+//     quantity_in_stock,
+//     release_date,
+//     is_fiction
+// )
+// VALUES
+// ('The Hitchhiker''s Guide to the Galaxy',  899,    560,    '1997-10-12',   'true'),
+
+
+
+// SELECT * from books;
