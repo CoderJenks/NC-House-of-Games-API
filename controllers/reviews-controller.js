@@ -1,5 +1,5 @@
 const { sort } = require("methods");
-const { selectReviewById, updateReviewById, selectReviews, selectCommentsByReview, postCommentByReview } = require("../models/reviews-model.js");
+const { selectReviewById, updateReviewById, selectReviews, selectCommentsByReview, insertCommentByReview } = require("../models/reviews-model.js");
 
 exports.getReviewById = (req, res, next) => {
     const {review_id} = req.params;
@@ -46,10 +46,11 @@ exports.getCommentsByReview = (req, res, next) => {
 
 exports.postCommentByReview = (req, res, next) => {
     const {review_id} = req.params;
+    const {body, author} = req.body
 
-    createCommentByReview()
+    insertCommentByReview(body, author, review_id)
     .then((comment) => {
-        res.status(200).send({comment});
+        res.status(201).send({msg: "comment created",comment: comment});
     })
     .catch(next);
 }

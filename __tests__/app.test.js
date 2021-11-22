@@ -426,7 +426,18 @@ describe("POST /api/reviews/:review_id/comments", () => {
         .send(input)
         .expect(201)
         .then(({body}) => {
-            expect(body.sg.toBe("comment created"))
+            console.log(body.comment)
+            expect(body.msg).toBe("comment created");
+            expect(body.comment.body).toEqual(input.body)
+            expect(body.comment.votes).toEqual(0)
+            expect(body.comment.author).toEqual(input.author)
+            expect(body.comment.review_id).toEqual(review_id)
+            expect(body.comment).toEqual(
+                expect.objectContaining({
+                    comment_id: expect.any(Number),
+                    created_at: expect.any(String)
+                })
+            )
         })
     })
 })
