@@ -443,7 +443,7 @@ describe("POST /api/reviews/:review_id/comments", () => {
 })
 
 describe("DELETE /api/comments/:comment_id", () => {
-    test.only("status 204, returns confirmation message has been deleted", () => {
-        
+    test("status 204, returns confirmation message has been deleted", () => {
+
     })
 })
