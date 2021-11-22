@@ -417,7 +417,7 @@ describe("GET /api/reviews/:review_id/comments", () => {
 })
 
 describe("POST /api/reviews/:review_id/comments", () => {
-    test.only("status 201, returns a comment with inputted body and username", () => {
+    test("status 201, returns a comment with inputted body and username", () => {
         const review_id = 1;
         const input = {body: "This game is great", author: "mallionaire"};
         
@@ -439,5 +439,11 @@ describe("POST /api/reviews/:review_id/comments", () => {
                 })
             )
         })
+    })
+})
+
+describe("DELETE /api/comments/:comment_id", () => {
+    test.only("status 204, returns confirmation message has been deleted", () => {
+        
     })
 })
