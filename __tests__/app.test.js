@@ -443,7 +443,17 @@ describe("POST /api/reviews/:review_id/comments", () => {
 })
 
 describe("DELETE /api/comments/:comment_id", () => {
-    test("status 204, returns confirmation message has been deleted", () => {
+    test.only("status 204, returns confirmation message has been deleted", () => {
+        const comment_id = 1;
+
+        return request(app)
+        .delete(`/api/comments/${comment_id}`)
+        .expect(204)
+        .then(({body}) => {
+            console.log(body)
+            expect(body.msg).toBe("comment deleted");
+            expect(body.comment.comment_id).toEqual(comment_id);
+        })
 
     })
 })
