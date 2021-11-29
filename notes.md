@@ -5,10 +5,12 @@
 - Install dependencies. **DONE**
 
     #### Dependencies
-    - dotenv
-    - express
-    - pg
-    - pg-format
+    - Node.js (minimum version 16.9.1)
+    - Dotenv (minimum version 10.0.0)
+    - Express (minimum version 4.17.1)
+    - Postgres pg (minimum version 8.7.1)
+    - Postgres pg-format (minimum version 1.0.4)
+    - cors (minimum version 2.8.5),
 
     #### devDependencies
     - jest
@@ -30,7 +32,7 @@
 - set up testing and build endpoints using TDD and error handling.
 
 
-    ### **GET** `/api/categories`
+### **GET** `/api/categories`
     Create an endpoint which responds with an array of category objects.
     - it should include the `slug` and `description` properties.
 
@@ -43,7 +45,7 @@
     - status: 404 {msg: "path not found"} DONE
 
 
-    ### **GET** `/api/reviews/:review_id`
+### **GET** `/api/reviews/:review_id`
     Responds with a review object with the following properties:
     - `owner` which is the `username` from the users table
     - `title`
@@ -147,6 +149,31 @@
     - status: 404 {msg: "path not found"} DONE
     - status: 400 {msg: "Invalid query"} - invalid review_id. DONE
     - status: 404 {msg: "review not found"} - valid review_id but no review. DONE
+
+### **POST** `/api/reviews/:review_id/comments`
+    Responds with a newly created comment for the given 'review_id' which contains the following properties:
+    - `comment_id`
+    - `votes`
+    - `created_at`
+    - `author` which is the username from the users table
+    - `body`
+    where author and body matches inputted values.
+    
+    Accepts an object in the form {body: "body string", author: "author string"}; 
+
+
+    ERRORS
+    Happy Path
+    - status: 201 {"comments": {,},....,{,}} DONE
+
+### **DELETE** `/api/comments/:comment_id`
+    Removes a comment with the given 'comment_id'.
+
+    ERRORS
+    Happy Path
+    - status: 204 DONE
+    
+
 
 
 
