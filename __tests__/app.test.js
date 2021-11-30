@@ -443,7 +443,7 @@ describe("POST /api/reviews/:review_id/comments", () => {
 })
 
 describe("DELETE /api/comments/:comment_id", () => {
-    test.only("status 204, deletes comment containing comment_id", () => {
+    test("status 204, deletes comment containing comment_id", () => {
         const comment_id = 6;
 
         return request(app)
@@ -451,3 +451,14 @@ describe("DELETE /api/comments/:comment_id", () => {
         .expect(204)
     })
 })
+
+describe.only("GET /api", () => {
+    test("status: 200, responds with a JSON", () => {
+        return request(app)
+        .get("/api")
+        .expect(200)
+        .then(({body}) => {
+            console.log("--->",body)
+        });
+    });
+});
