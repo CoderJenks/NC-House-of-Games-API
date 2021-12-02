@@ -3,3 +3,6 @@ node_modules
 package-lock.json
 output.txt
 update-query.sql
+OLD-README.md
+error-handling.md
+hosting.md
