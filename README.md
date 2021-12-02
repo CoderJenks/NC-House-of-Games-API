@@ -76,14 +76,14 @@ In the terminal type the command `npm test app.test.js` to run the jest tests fo
 #### Get all categories
 
 ```http
-  GET /api/categories
+GET /api/categories
 ```
 
 Responds with an array of category objects
 #### Get all reviews
 
 ```http
-  GET /api/reviews
+GET /api/reviews
 ```
 Responds with an array of review objects with the following properties:
 - `owner`
@@ -105,7 +105,7 @@ Accepts the following queries:
 #### Get review
 
 ```http
-  GET /api/reviews/${review_id}
+GET /api/reviews/${review_id}
 ```
 
 | Parameter | Type     | Description                       |
@@ -128,7 +128,7 @@ Responds with a review object with the following properties:
 #### Patch a reviews vote count
 
 ```http
-  PATCH /api/reviews/${review_id}
+PATCH /api/reviews/${review_id}
 ```
 
 | Parameter | Type     | Description                       |
@@ -142,7 +142,7 @@ Responds with a review object with the following properties:
 #### Get all comments for a review
 
 ```http
-  GET /api/reviews/${review_id}/comments
+GET /api/reviews/${review_id}/comments
 ```
 
 | Parameter | Type     | Description                       |
@@ -162,7 +162,7 @@ Each comment in the array has the following properties:
 #### Post a new comment for a review
 
 ```http
-  POST /api/reviews/${review_id/comments
+POST /api/reviews/${review_id/comments
 ```
 
 | Parameter | Type     | Description                       |
@@ -181,7 +181,7 @@ Responds with a newly created comment for the given 'review_id' which contains t
 #### Delete a comment
 
 ```http
-    DELETE /api/comments/{comment_id}
+DELETE /api/comments/{comment_id}
 ```
 
 | Parameter | Type     | Description                       |
